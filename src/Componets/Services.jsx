@@ -13,6 +13,7 @@ export default function Services() {
           <p>Deep insights into your operations and strategy.</p>
         </div>
         <div className="card">
+          
           <h3>Cloud Computing</h3>
           <p>Secure, scalable cloud solutions for modern business.</p>
         </div>
