@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f9fbff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: #0066ff;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #0055dd;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 102, 255, 0.25);
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #0066ff;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 36px;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #0066ff;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #0066ff 0%, #003399 100%);
+    color: white;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3.8rem;
+    margin-bottom: 1.2rem;
+}
+
+.hero-content h2 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    opacity: 0.9;
+}
+
+/* Other sections */
+.section-title {
+    text-align: center;
+    font-size: 2.6rem;
+    margin-bottom: 3rem;
+    color: #111;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+}
+
+.card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.testimonial {
+    font-style: italic;
+    background: #f0f5ff;
+    padding: 28px;
+    border-radius: 12px;
+    border-left: 5px solid #0066ff;
+}
+
+/* Footer */
+footer {
+    background: #0d1b2a;
+    color: #c9d1d9;
+    padding: 60px 0 30px;
+    text-align: center;
+}
+
+footer a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        height: auto;
+        padding: 16px 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.6rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1.7rem;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+}
+
+/* Smooth scrolling when clicking nav links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Optional: Add some top padding so fixed header doesn't cover section title */
+section {
+    padding-top: 100px;
+    /* adjust based on your header height (~80px + buffer) */
+    padding-bottom: 80px;
+}
+
+/* Optional: Highlight active section (very nice touch) */
+section:target {
+    background: rgba(0, 102, 255, 0.03);
+    /* subtle highlight */
+    transition: background 0.6s ease;
+}
+
+/* Active nav link styling */
+nav a {
+    position: relative;
+}
+
+nav a[href="#home"]:active,
+nav a[href="#about"]:active,
+/* ... list all ... */
+nav a[href="#blogs"]:active {
+    color: #0066ff;
+    font-weight: 600;
+}
+
+/* Better: use :target on body or with JS later */
+
+
+/* ─── Improved Dropdown ─── */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 0 8px;
+    /* small padding helps hit area */
+}
+
+.dropdown-toggle:hover {
+    color: #0066ff;
+}
+
+/* Dropdown menu container */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    margin-top: 4px;
+    /* reduced from 8px */
+    padding: 8px 0;
+    list-style: none;
+    z-index: 1000;
+
+    /* Key fixes */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+    pointer-events: none;
+    /* prevents interaction until visible */
+}
+
+/* Show on hover of the whole dropdown area (parent li) */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Prevent disappearing when moving mouse diagonally */
+.dropdown-menu {
+    /* Add invisible bridge between toggle and menu */
+    padding-top: 12px;
+    /* creates safe hover zone */
+}
+
+/* Position better - prevent right-side overflow */
+.dropdown-menu {
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    min-width: 260px;
+}
+
+.dropdown:hover .dropdown-menu {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Triangle arrow (centered) */
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+}
+
+/* Items */
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 24px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+    background: #f0f5ff;
+    color: #0066ff;
+    padding-left: 32px;
+}
+
+/* Mobile fallback (if you add hamburger later) */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        box-shadow: none;
+        background: #f8f9fa;
+        margin: 0;
+        padding: 8px 0 8px 24px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        /* no special hover on mobile */
+    }
+}
+
+.dropdown .dropdown-menu {
+    transition: opacity 0.25s ease 0s, transform 0.25s ease 0s, visibility 0s linear 0.25s;
+}
+
+.dropdown:hover .dropdown-menu {
+    transition: opacity 0.18s ease 0s, transform 0.18s ease 0s, visibility 0s linear 0s;
+}
