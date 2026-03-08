@@ -1,27 +1,21 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Header from './Componets/Header'
-import Footer from './Componets/Footer'
-import Hero from './Componets/Hero'
-import Services from './Componets/Services'
-import About from './Componets/About'
-import Philosophy from './Componets/Philosophy'
-import Commitment from './Componets/Commitment'
-import Industries from './Componets/Industries'
-import Testimonials from './Componets/Testimonials'
-import Blogs from './Componets/Blogs'
 import Contact from './Componets/Contact'
+import Master from './Componets/Master'
+import Body from './Componets/Body'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <Header />
+      {/* <Header />
       <main>
         <section id="home">
           <Hero />
+        </section>
+        
+        <section id="services">
+          <Services />
         </section>
 
         <section id="about">
@@ -30,10 +24,6 @@ function App() {
 
         <section id="philosophy">
           <Philosophy />
-        </section>
-
-        <section id="services">
-          <Services />
         </section>
 
         <section id="commitment">
@@ -57,7 +47,17 @@ function App() {
         </section>
       </main>
 
-      <Footer />
+      <Footer /> */}
+
+
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Master/>}>
+              <Route path='/' element={<Body/>}></Route>
+              <Route path='contact/' element={<Contact/>}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

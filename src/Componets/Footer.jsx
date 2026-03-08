@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer>
+    <footer  style={{marginTop:"100px"}}>
       <div className="container">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h3 style={{ color: 'white', marginBottom: '1.5rem' }}>PENNEP</h3>
