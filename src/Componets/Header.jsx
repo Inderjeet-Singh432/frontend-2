@@ -13,8 +13,8 @@ export default function Header() {
 
           <nav>
             <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About Us</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About Us</Link></li>
 
               {/* Dropdown for Services */}
               <li
@@ -34,9 +34,9 @@ export default function Header() {
                 )}
               </li>
 
-              <li><a href="#industries">Book now</a></li>
-              <li><a href="#blogs">Explore</a></li>
               <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/signin">Sign In</Link></li>
+              <li><Link to="/signup">Sign Up</Link></li>
             </ul>
           </nav>
         </div>
