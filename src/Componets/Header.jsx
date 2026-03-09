@@ -8,7 +8,7 @@ export default function Header() {
     <>
       <header>
         <div className="container nav-container" >
-          <div className="logo">MSB</div>
+          <div className="logo"><h1>MSB</h1></div>
           <nav>
             <ul>
               <li><Link to="/">Home</Link></li>
