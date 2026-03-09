@@ -91,7 +91,7 @@ nav a:hover {
 
 /* Hero */
 .hero {
-    background: linear-gradient(135deg, #0066ff 0%, #003399 100%);
+    background: linear-gradient(360deg, #0066ffc3 0%, #003399 100%);
     color: white;
     min-height: 90vh;
     display: flex;

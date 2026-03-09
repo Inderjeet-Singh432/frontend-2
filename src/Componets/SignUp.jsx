@@ -1,7 +1,7 @@
 export default function SignUp() {
     return(
         <>
-        <h1>sign up</h1>
+        <h1 style={{marginTop:"100px"}}>sign up</h1>
         </>
     )
 }

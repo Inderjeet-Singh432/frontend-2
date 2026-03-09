@@ -1,7 +1,7 @@
 export default function Contact() {
   return (
     <>
-      <section id="contact" className="container">
+      <section id="contact" className="container" style={{marginTop:"100px"}}>
         <h2 className="section-title">Get in Touch</h2>
         <p style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 3rem' }}>
           Ready to transform your business with the right technology and strategy?

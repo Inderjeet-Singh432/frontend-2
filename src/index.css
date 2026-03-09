@@ -22,3 +22,67 @@
 .hotel-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 .filter-sidebar { background: #f8f9fa; padding: 1rem; border-radius: 10px; }
 .price-range { accent-color: #667eea; }
+
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.btn {
+  background: #0066ff;
+  color: white;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background: #0055dd;
+  transform: translateY(-2px);
+}
