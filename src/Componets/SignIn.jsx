@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { toast } from 'react-toastify';
+import ApiServices from '../ApiServices';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -9,17 +11,14 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
+    var nav = useNavigate()
+
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        setLoading(true);
 
-        // → Replace with your real API call
-        await new Promise(r => setTimeout(r, 1400)); // demo delay
+        e.preventDefault()
+        setLoading(true)
 
-        if (email.includes('@') && password.length >= 6) {
-            alert('Login successful! (demo)');
-           let data = {
+        let data = {
             email: email,
             password: password
         }
@@ -41,31 +40,28 @@ export default function LoginPage() {
                     }
                     if (res.data.data.userType == "2") {
                         setTimeout(() => {
-                            setLoad(false)
+                            setLoading(false)
                             nav("/owner")
                         }, 4000)
                     }
                 }
 
                 else {
-                    setLoad(false)
+                    setLoading(false)
                     toast.error(res.data.message)
                 }
             })
 
             .catch((err) => {
-                setLoad(false)
-                console.log("database is not conected", err);
+                setLoading(false)
+                console.log(err);
                 toast.error("Something went wrong!!")
             })
-        } else {
-            setError('Invalid credentials. Try again.');
-        }
-        setLoading(false);
+
     };
 
     const handleGoogleSuccess = (credentialResponse) => {
-        console.log('Google Login Success:', credentialResponse);
+        console.log(credentialResponse);
         // Send to backend: credentialResponse.credential (ID token)
         alert('Google login successful! (demo)');
         window.location.href = '/owner/dashboard';

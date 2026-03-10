@@ -256,7 +256,7 @@ function Hotels() {
   const [currentPage, setCurrentPage] = useState(1)
   const hotelsPerPage = 6
 
-  // ---------------------------------------------api start
+  // -----------------------------------------------------------------------------------------------------------------api start
   var [data, setData] = useState()
   let [totalpages, settotalpages] = useState([])
   let [hotel, setHottel] = useState([])
@@ -277,7 +277,7 @@ function Hotels() {
         console.log(err);
       })
   }, [])
-  // ---------------------------------------------api end
+  // -----------------------------------------------------------------------------------------------------------------api end
 
   const [search, setSearch] = useState({
     location: '',
@@ -362,8 +362,8 @@ function Hotels() {
       <section className="hero" style={{ marginBottom: "50px", paddingTop: "100px" }} >
         <div className="container" >
           <div className="hero-content">
-            <h2>"Hassle-free hotel booking with trusted customer support."</h2>
-            <h1>MSB: "Your comfort is our priority – Get instant booking assistance."</h1>
+            <h3>"Hassle-free hotel booking with trusted customer support."</h3>
+            <h2>MSB: "Your comfort is our priority – Get instant booking with MSB" (Multiple Stay Booking Site)</h2>
             <p >"Book your perfect hotel with confidence – Support available anytime.".</p>
 
             <Hero>
