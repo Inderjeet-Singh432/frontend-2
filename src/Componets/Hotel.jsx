@@ -51,7 +51,7 @@ const industries = [
     desc: "Hotels, family-friendly PGs, and group dormitories for tourists, event organizers, wedding parties, and leisure travelers."
   }
 ];
-
+import heroBg from '/public/Assets/Images/1.jpg'; // ← adjust path if in public/
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -358,441 +358,469 @@ function Hotels() {
 
   return (
     <>
-      {/* hero start */}
-      <section className="hero" style={{ marginBottom: "50px", paddingTop: "100px" }} >
-        <div className="container" >
-          <div className="hero-content">
-            <h3>"Hassle-free hotel booking with trusted customer support."</h3>
-            <h2>MSB: "Your comfort is our priority – Get instant booking with MSB" (Multiple Stay Booking Site)</h2>
-            <p >"Book your perfect hotel with confidence – Support available anytime.".</p>
-
-            <Hero>
-              <div className="container" style={{ marginTop: "-60px", marginBottom: "-5px" }}>
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="display-4 fw-bold mb-4 text-center"
-                  style={{ fontSize: "47px" }}                >
-                  <BiHotel className="me-3" style={{ fontSize: '3.2rem' }} />
-                  Find Your Perfect Stay
-                </motion.h1>
-
-                <SearchForm onSubmit={(e) => { e.preventDefault(); setCurrentPage(1) }}>
-                  <div className="row g-3 align-items-end">
-                    <div className="col-md-4">
-                      <label className="form-label fw-bold"><BiMapPin className="me-1" /> Location</label>
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Jalandhar, Punjab..."
-                        value={search.location}
-                        onChange={e => setSearch({ ...search, location: e.target.value })}
-                      />
-                    </div>
-                    <div className="col-md-3">
-                      <label className="form-label fw-bold"><Calendar className="me-1" /> Check-in</label>
-                      <DatePicker
-                        selected={search.checkIn}
-                        onChange={date => setSearch({ ...search, checkIn: date })}
-                        className="form-control form-control-lg"
-                        minDate={new Date()}
-                        dateFormat="dd MMM yyyy"
-                      />
-                    </div>
-                    <div className="col-md-3">
-                      <label className="form-label fw-bold">Check-out</label>
-                      <DatePicker
-                        selected={search.checkOut}
-                        onChange={date => setSearch({ ...search, checkOut: date })}
-                        className="form-control form-control-lg"
-                        minDate={search.checkIn}
-                        dateFormat="dd MMM yyyy"
-                      />
-                    </div>
-                    <div className="col-md-2">
-                      <label className="form-label fw-bold"><Users className="me-1" /> Guests</label>
-                      <select
-                        className="form-select form-select-lg"
-                        value={search.guests}
-                        onChange={e => setSearch({ ...search, guests: Number(e.target.value) })}
-                      >
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4+</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <button type="submit" className="btn btn-light w-100 mt-4 fw-bold">
-                    Book now
-                  </button>
-                </SearchForm>
-              </div>
-            </Hero>
-          </div>
-        </div>
-      </section>
-      {/* hero end */}
-
-
-      <div className="min-vh-100 bg-light">
-
-        {/* Hero + Search - unchanged */}
-
-
-        {/* Main Content */}
-        <div className="container py-5">
-          <div className="row">
-            <div className="col-lg-3 mb-5 mb-lg-0">
-              <FilterSidebar>
-                <h4 className="mb-4 fw-bold"><FilterIcon className="me-2" size={20} /> Filters</h4>
-
-                <div className="mb-4">
-                  <label className="form-label fw-semibold">Price per night (₹)</label>
-                  <input
-                    type="range"
-                    className="form-range"
-                    min="500"
-                    max="5000"
-                    step="100"
-                    value={filters.price[1]}
-                    onChange={e => setFilters({ ...filters, price: [500, Number(e.target.value)] })}
-                  />
-                  <div className="d-flex justify-content-between mt-1 small">
-                    <span>₹500</span>
-                    <span>₹{filters.price[1]}</span>
-                  </div>
-                </div>
-
-                {/* ─── NEW FILTER ADDED HERE ─────────────────────────────── */}
-                <div className="mb-4">
-                  <label className="form-label fw-semibold">Stay Type</label>
-                  <select
-                    className="form-select"
-                    value={filters.stayType}
-                    onChange={e => setFilters(prev => ({ ...prev, stayType: e.target.value }))}
-                  >
-                    <option value="">All Types</option>
-                    <option value="hotel">Hotel</option>
-                    <option value="pg">PG</option>
-                    <option value="dormitory">Dormitory</option>
-                  </select>
-                </div>
-                {/* ─────────────────────────────────────────────────────────── */}
-
-                <div className="mb-4">
-                  <label className="form-label fw-semibold">Star Rating</label>
-                  {['5', '4', '3'].map(r => (
-                    <div key={r} className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id={`rating-${r}`}
-                        checked={filters.rating.includes(Number(r))}
-                        onChange={e => {
-                          const vals = e.target.checked
-                            ? [...filters.rating, Number(r)]
-                            : filters.rating.filter(v => v !== Number(r))
-                          setFilters({ ...filters, rating: vals })
-                        }}
-                      />
-                      <label className="form-check-label" htmlFor={`rating-${r}`}>
-                        {r} Stars
-                      </label>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mb-4">
-                  <label className="form-label fw-semibold">Amenities</label>
-                  {['AC', 'WiFi', 'Pool', 'Gym', 'Free Breakfast'].map(a => (
-                    <div key={a} className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id={`amenity-${a}`}
-                        checked={filters.amenities.includes(a)}
-                        onChange={e => {
-                          const vals = e.target.checked
-                            ? [...filters.amenities, a]
-                            : filters.amenities.filter(v => v !== a)
-                          setFilters({ ...filters, amenities: vals })
-                        }}
-                      />
-                      <label className="form-check-label" htmlFor={`amenity-${a}`}>
-                        {a}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-
-                <div>
-                  <label className="form-label fw-semibold">Sort by</label>
-                  <select
-                    className="form-select"
-                    value={filters.sort}
-                    onChange={e => setFilters({ ...filters, sort: e.target.value })}
-                  >
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="rating-high">Rating: High to Low</option>
-                  </select>
-                </div>
-              </FilterSidebar>
-            </div>
-
-            <div className="col-lg-9">
-              {loading ? (
-                <div className="text-center py-5 my-5">
-                  <ClipLoader color="#667eea" size={60} />
-                </div>
-              ) : (
-                <>
-                  <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h4 className="mb-0">
-                      {filteredHotels.length} {filteredHotels.length === 1 ? 'stay' : 'stays'} found
-                    </h4>
-                    <Link to="#" className="btn btn-outline-secondary">View on Map</Link>
-                  </div>
-
-                  <div className="row">
-                    <AnimatePresence>
-                      {currentHotels.map((hotel, idx) => (
-                        <div className="col-12" style={{ marginTop: "30px" }} key={hotel.id}>
-                          <HotelCard
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.08, duration: 0.5 }}
-                          >
-                            {/* row start */}
-                            <div className='row'>
-                              {/* properity type badge start */}
-                              <div className='col-12 d-flex justify-content-end p-2'>
-                                <span className="badge " style={{ color: "black" }}>{hotel.type.toUpperCase()}</span>
-                              </div>
-                              {/* properity type badge start */}
-
-                              <div className='row'>
-                                {/* image start */}
-                                <div className='col-4'>
-                                  <HotelImageWrapper>
-                                    <HotelImage src={hotel.image} alt={hotel.name} />
-                                  </HotelImageWrapper>
-                                </div>
-                                {/* image end */}
-
-                                {/* name and description start */}
-                                <div className='col-6' >
-                                  {/* name and ratting start */}
-                                  <div className='col-12' style={{ height: "auto" }}>
-                                    <div className="d-flex justify-content-between align-items-start mb-2">
-                                      <h5 className="mb-0">{hotel.name}</h5>
-
-                                    </div>
-                                  </div>
-                                  {/* name and ratting end */}
-
-                                  {/* description start */}
-                                  <div className='col-12' style={{ marginTop: "20px" }}>
-                                    <p className="text-muted small mb-2">
-                                      <BiMapPin size={14} className="me-1" />
-                                      {hotel.location}
-                                    </p>
-                                    <p className="small mb-3">{hotel.desc}</p>
-                                  </div>
-                                  {/* description end */}
-                                </div>
-                                {/* name and description end */}
-
-                                {/* booking button start */}
-                                <div className='col-2'>
-                                  {/* raiting and price start */}
-                                  <div className="d-flex align-items-center text-warning" style={{ marginTop: "20px" }}>
-                                    {[...Array(5)].map((_, i) => (
-                                      <Star
-                                        key={i}
-                                        size={16}
-                                        fill={i < Math.floor(hotel.rating) ? '#ffc107' : 'none'}
-                                      />
-                                    ))}
-                                    <h6 className="ms-1 text-muted">({hotel.rating})</h6>
-                                  </div>
-                                  {/* raiting and price end */}
-
-                                  {/* price start  */}
-                                  <div className="d-flex justify-content-between align-items-center">
-                                    <h5 className="mb-0 text-primary" style={{ marginTop: "20px" }}>
-                                      ₹{hotel.price}<large className="text-muted"> / night</large>
-                                    </h5>
-                                  </div>
-                                  {/* price end  */}
-
-                                  <button
-                                    style={{ padding: "10px 20px", marginTop: "20px" }}
-                                    className="btn btn-sm btn-primary d-flex align-items-center justify-content-center"
-                                    onClick={() => {
-                                      setSelectedHotel(hotel)
-                                      setIsBookingOpen(true)
-                                    }}
-                                  >
-                                    Book now
-                                  </button>
-                                </div>
-                                {/* booking button end */}
-
-                              </div>
-
-                            </div>
-                            {/* row end */}
-                          </HotelCard>
-                        </div>
-                      ))}
-                    </AnimatePresence>
-                  </div>
-
-                  {totalPages > 1 && (
-                    <nav className="mt-5">
-                      <ul className="pagination justify-content-center">
-                        {[...Array(totalPages)].map((_, i) => (
-                          <li
-                            key={i}
-                            className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}
-                          >
-                            <button
-                              className="page-link"
-                              onClick={() => setCurrentPage(i + 1)}
-                            >
-                              {i + 1}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </nav>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* ─── IMPROVED BOOKING MODAL ─────────────────────────────────────────────── */}
-        <Modal
-          isOpen={isBookingOpen}
-          onRequestClose={() => setIsBookingOpen(false)}
+      {/* Hero Section */}
+      <section
+        className="hero-section position-relative d-flex align-items-center justify-content-center text-center text-white"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          minHeight: '80vh',           // or '100vh' for full viewport
+          height: 'auto',
+        }}
+      >
+        {/* Dark overlay for readability */}
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100"
           style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.70)',
-              zIndex: 1050,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-            content: {
-              position: 'relative',
-              inset: 'auto',
-              border: 'none',
-              background: 'transparent',
-              padding: 0,
-              overflow: 'visible',
-              maxWidth: '620px',
-              width: '90vw',
-            }
+            backgroundColor: 'rgba(0, 0, 0, 0.45)', // 45% dark overlay
+            zIndex: 1,
           }}
-        >
-          {selectedHotel && (
-            <BookingModalContent>
-              <button className="close-btn" onClick={() => setIsBookingOpen(false)}>
-                <X size={28} />
-              </button>
+        ></div>
 
-              <h3>Confirm Your Booking</h3>
-              <h5>{selectedHotel.name}</h5>
-
-              <p>
-                {search.checkIn.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })} —
-                {search.checkOut.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+        {/* Content on top */}
+        <div className="container-fluid position-relative" style={{ zIndex: 2 }}>
+          <div className="row justify-content-center">
+            <div className="col-lg-8 col-xl-7">
+              <h3>"Hassle-free hotel booking with trusted customer support."</h3>
+              <h1 className="display-3 fw-bold mb-4">   Discover Luxury Hotels with MSB     </h1>
+              <p className="lead fs-4 mb-5">
+                "Book your perfect hotel with confidence – Support available anytime.with MSB (Multiple Stay Booking Site)"
               </p>
 
-              <p>Guests: {search.guests} • {selectedHotel.location}</p>
+              {/* Optional: Simple search bar like MakeMyTrip */}
+              <Hero>
+                <div className="container" style={{ marginTop: "-80px", marginBottom: "-5px"}}>
+                  <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="display-4 fw-bold mb-4 text-center"
+                    style={{ fontSize: "40px" }}                >
+                    <BiHotel className="me-3" style={{ fontSize: '3.2rem' }} />
+                    Find Your Perfect Stay
+                  </motion.h1>
 
-              <div className="total">
-                Total: ₹{selectedHotel.price * Math.max(1, Math.ceil((search.checkOut - search.checkIn) / 86400000))}
-              </div>
+                  <SearchForm onSubmit={(e) => { e.preventDefault(); setCurrentPage(1) }} >
+                    <div className="row g-3 align-items-end" >
+                      <div className="col-md-4" >
+                        <label className="form-label fw-bold"><BiMapPin className="me-1" /> Location</label>
+                        <input
+                          type="text"
+                          className="form-control form-control-lg"
+                          placeholder="Jalandhar, Punjab..."
+                          value={search.location}
+                          onChange={e => setSearch({ ...search, location: e.target.value })}
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <label className="form-label fw-bold"><Calendar className="me-1" /> Check-in</label>
+                        <DatePicker
+                          selected={search.checkIn}
+                          onChange={date => setSearch({ ...search, checkIn: date })}
+                          className="form-control form-control-lg"
+                          minDate={new Date()}
+                          dateFormat="dd MMM yyyy"
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <label className="form-label fw-bold">Check-out</label>
+                        <DatePicker
+                          selected={search.checkOut}
+                          onChange={date => setSearch({ ...search, checkOut: date })}
+                          className="form-control form-control-lg"
+                          minDate={search.checkIn}
+                          dateFormat="dd MMM yyyy"
+                        />
+                      </div>
+                      <div className="col-md-2" >
+                        <label className="form-label fw-bold"><Users className="me-1" /> Guests</label>
+                        <select
+                          className="form-select form-select-lg"
+                          value={search.guests}
+                          onChange={e => setSearch({ ...search, guests: Number(e.target.value) })}
+                        >
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4+</option>
+                        </select>
+                      </div>
+                    </div>
 
-              <form onSubmit={handleSubmit(onBook)}>
-                <input
-                  className="form-control"
-                  placeholder="Full Name"
-                  {...register('name', { required: true })}
-                />
-                <input
-                  className="form-control"
-                  type="email"
-                  placeholder="Email Address"
-                  {...register('email', { required: true })}
-                />
-                <input
-                  className="form-control"
-                  type="tel"
-                  placeholder="Phone Number"
-                  {...register('phone', { required: true })}
-                />
-
-                <button type="submit" className="btn-confirm mt-4 w-100">
-                  Confirm & Book Now
-                </button>
-              </form>
-            </BookingModalContent>
-          )}
-        </Modal>
-
-      </div>
-
-
-      {/* Testimonials start */}
-      <section className="container" style={{ marginTop: "150px" }}>
-        <h2 className="section-title">What Our Clients Say</h2>
-        <div className="grid-3">
-          {testimonials.map((t, i) => (
-            <div key={i} className="testimonial">
-              <p>“{t.text}”</p>
-              <p style={{ marginTop: '1.5rem', fontWeight: '600' }}>
-                — {t.name}<br />
-                <span style={{ fontWeight: 'normal', color: '#666', fontSize: '0.95rem' }}>{t.role}</span>
-              </p>
+                    <button type="submit" className="btn btn-light w-100 mt-4 fw-bold">
+                      Book now
+                    </button>
+                  </SearchForm>
+                </div>
+              </Hero>
             </div>
-          ))}
+          </div>
         </div>
       </section>
-      {/* Testimonials end */}
 
 
-      {/* Industries start */}
-      <section style={{ background: '#f8f9fa', marginTop: "20px" }}>
-        <div className="container">
-          <h2 className="section-title">Industries We Serve</h2>
-          <p style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 3rem' }}>
-            Reliable, comfortable, and budget-friendly accommodation solutions — from hotels and premium PGs to modern dormitories — tailored for professionals, students, companies, and travelers across Punjab and Chandigarh.
-          </p>
+      {/* Rest of your hotel page content */}
+      <div className="container my-5 py-5">
 
+        <div className="min-vh-100 bg-light">
+
+          {/* Hero + Search - unchanged */}
+
+
+          {/* Main Content */}
+          <div className="container py-5">
+            <div className="row">
+              <div className="col-lg-3 mb-5 mb-lg-0">
+                <FilterSidebar>
+                  <h4 className="mb-4 fw-bold"><FilterIcon className="me-2" size={20} /> Filters</h4>
+
+                  <div className="mb-4">
+                    <label className="form-label fw-semibold">Price per night (₹)</label>
+                    <input
+                      type="range"
+                      className="form-range"
+                      min="500"
+                      max="5000"
+                      step="100"
+                      value={filters.price[1]}
+                      onChange={e => setFilters({ ...filters, price: [500, Number(e.target.value)] })}
+                    />
+                    <div className="d-flex justify-content-between mt-1 small">
+                      <span>₹500</span>
+                      <span>₹{filters.price[1]}</span>
+                    </div>
+                  </div>
+
+                  {/* ─── NEW FILTER ADDED HERE ─────────────────────────────── */}
+                  <div className="mb-4">
+                    <label className="form-label fw-semibold">Stay Type</label>
+                    <select
+                      className="form-select"
+                      value={filters.stayType}
+                      onChange={e => setFilters(prev => ({ ...prev, stayType: e.target.value }))}
+                    >
+                      <option value="">All Types</option>
+                      <option value="hotel">Hotel</option>
+                      <option value="pg">PG</option>
+                      <option value="dormitory">Dormitory</option>
+                    </select>
+                  </div>
+                  {/* ─────────────────────────────────────────────────────────── */}
+
+                  <div className="mb-4">
+                    <label className="form-label fw-semibold">Star Rating</label>
+                    {['5', '4', '3'].map(r => (
+                      <div key={r} className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id={`rating-${r}`}
+                          checked={filters.rating.includes(Number(r))}
+                          onChange={e => {
+                            const vals = e.target.checked
+                              ? [...filters.rating, Number(r)]
+                              : filters.rating.filter(v => v !== Number(r))
+                            setFilters({ ...filters, rating: vals })
+                          }}
+                        />
+                        <label className="form-check-label" htmlFor={`rating-${r}`}>
+                          {r} Stars
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="form-label fw-semibold">Amenities</label>
+                    {['AC', 'WiFi', 'Pool', 'Gym', 'Free Breakfast'].map(a => (
+                      <div key={a} className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id={`amenity-${a}`}
+                          checked={filters.amenities.includes(a)}
+                          onChange={e => {
+                            const vals = e.target.checked
+                              ? [...filters.amenities, a]
+                              : filters.amenities.filter(v => v !== a)
+                            setFilters({ ...filters, amenities: vals })
+                          }}
+                        />
+                        <label className="form-check-label" htmlFor={`amenity-${a}`}>
+                          {a}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div>
+                    <label className="form-label fw-semibold">Sort by</label>
+                    <select
+                      className="form-select"
+                      value={filters.sort}
+                      onChange={e => setFilters({ ...filters, sort: e.target.value })}
+                    >
+                      <option value="price-low">Price: Low to High</option>
+                      <option value="price-high">Price: High to Low</option>
+                      <option value="rating-high">Rating: High to Low</option>
+                    </select>
+                  </div>
+                </FilterSidebar>
+              </div>
+
+              <div className="col-lg-9">
+                {loading ? (
+                  <div className="text-center py-5 my-5">
+                    <ClipLoader color="#667eea" size={60} />
+                  </div>
+                ) : (
+                  <>
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                      <h4 className="mb-0">
+                        {filteredHotels.length} {filteredHotels.length === 1 ? 'stay' : 'stays'} found
+                      </h4>
+                      <Link to="#" className="btn btn-outline-secondary">View on Map</Link>
+                    </div>
+
+                    <div className="row">
+                      <AnimatePresence>
+                        {currentHotels.map((hotel, idx) => (
+                          <div className="col-12" style={{ marginTop: "30px" }} key={hotel.id}>
+                            <HotelCard
+                              initial={{ opacity: 0, y: 30 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: idx * 0.08, duration: 0.5 }}
+                            >
+                              {/* row start */}
+                              <div className='row'>
+                                {/* properity type badge start */}
+                                <div className='col-12 d-flex justify-content-end p-2'>
+                                  <span className="badge " style={{ color: "black" }}>{hotel.type.toUpperCase()}</span>
+                                </div>
+                                {/* properity type badge start */}
+
+                                <div className='row'>
+                                  {/* image start */}
+                                  <div className='col-4'>
+                                    <HotelImageWrapper>
+                                      <HotelImage src={hotel.image} alt={hotel.name} />
+                                    </HotelImageWrapper>
+                                  </div>
+                                  {/* image end */}
+
+                                  {/* name and description start */}
+                                  <div className='col-6' >
+                                    {/* name and ratting start */}
+                                    <div className='col-12' style={{ height: "auto" }}>
+                                      <div className="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 className="mb-0">{hotel.name}</h5>
+
+                                      </div>
+                                    </div>
+                                    {/* name and ratting end */}
+
+                                    {/* description start */}
+                                    <div className='col-12' style={{ marginTop: "20px" }}>
+                                      <p className="text-muted small mb-2">
+                                        <BiMapPin size={14} className="me-1" />
+                                        {hotel.location}
+                                      </p>
+                                      <p className="small mb-3">{hotel.desc}</p>
+                                    </div>
+                                    {/* description end */}
+                                  </div>
+                                  {/* name and description end */}
+
+                                  {/* booking button start */}
+                                  <div className='col-2'>
+                                    {/* raiting and price start */}
+                                    <div className="d-flex align-items-center text-warning" style={{ marginTop: "20px" }}>
+                                      {[...Array(5)].map((_, i) => (
+                                        <Star
+                                          key={i}
+                                          size={16}
+                                          fill={i < Math.floor(hotel.rating) ? '#ffc107' : 'none'}
+                                        />
+                                      ))}
+                                      <h6 className="ms-1 text-muted">({hotel.rating})</h6>
+                                    </div>
+                                    {/* raiting and price end */}
+
+                                    {/* price start  */}
+                                    <div className="d-flex justify-content-between align-items-center">
+                                      <h5 className="mb-0 text-primary" style={{ marginTop: "20px" }}>
+                                        ₹{hotel.price}<large className="text-muted"> / night</large>
+                                      </h5>
+                                    </div>
+                                    {/* price end  */}
+
+                                    <button
+                                      style={{ padding: "10px 20px", marginTop: "20px" }}
+                                      className="btn btn-sm btn-primary d-flex align-items-center justify-content-center"
+                                      onClick={() => {
+                                        setSelectedHotel(hotel)
+                                        setIsBookingOpen(true)
+                                      }}
+                                    >
+                                      Book now
+                                    </button>
+                                  </div>
+                                  {/* booking button end */}
+
+                                </div>
+
+                              </div>
+                              {/* row end */}
+                            </HotelCard>
+                          </div>
+                        ))}
+                      </AnimatePresence>
+                    </div>
+
+                    {totalPages > 1 && (
+                      <nav className="mt-5">
+                        <ul className="pagination justify-content-center">
+                          {[...Array(totalPages)].map((_, i) => (
+                            <li
+                              key={i}
+                              className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}
+                            >
+                              <button
+                                className="page-link"
+                                onClick={() => setCurrentPage(i + 1)}
+                              >
+                                {i + 1}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </nav>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ─── IMPROVED BOOKING MODAL ─────────────────────────────────────────────── */}
+          <Modal
+            isOpen={isBookingOpen}
+            onRequestClose={() => setIsBookingOpen(false)}
+            style={{
+              overlay: {
+                backgroundColor: 'rgba(0, 0, 0, 0.70)',
+                zIndex: 1050,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+              content: {
+                position: 'relative',
+                inset: 'auto',
+                border: 'none',
+                background: 'transparent',
+                padding: 0,
+                overflow: 'visible',
+                maxWidth: '620px',
+                width: '90vw',
+              }
+            }}
+          >
+            {selectedHotel && (
+              <BookingModalContent>
+                <button className="close-btn" onClick={() => setIsBookingOpen(false)}>
+                  <X size={28} />
+                </button>
+
+                <h3>Confirm Your Booking</h3>
+                <h5>{selectedHotel.name}</h5>
+
+                <p>
+                  {search.checkIn.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })} —
+                  {search.checkOut.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </p>
+
+                <p>Guests: {search.guests} • {selectedHotel.location}</p>
+
+                <div className="total">
+                  Total: ₹{selectedHotel.price * Math.max(1, Math.ceil((search.checkOut - search.checkIn) / 86400000))}
+                </div>
+
+                <form onSubmit={handleSubmit(onBook)}>
+                  <input
+                    className="form-control"
+                    placeholder="Full Name"
+                    {...register('name', { required: true })}
+                  />
+                  <input
+                    className="form-control"
+                    type="email"
+                    placeholder="Email Address"
+                    {...register('email', { required: true })}
+                  />
+                  <input
+                    className="form-control"
+                    type="tel"
+                    placeholder="Phone Number"
+                    {...register('phone', { required: true })}
+                  />
+
+                  <button type="submit" className="btn-confirm mt-4 w-100">
+                    Confirm & Book Now
+                  </button>
+                </form>
+              </BookingModalContent>
+            )}
+          </Modal>
+
+        </div>
+
+
+        {/* Testimonials start */}
+        <section className="container" style={{ marginTop: "150px" }}>
+          <h2 className="section-title">What Our Clients Say</h2>
           <div className="grid-3">
-            {industries.map((ind, i) => (
-              <div key={i} className="card" style={{ textAlign: 'center' }}>
-                <h3>{ind.title}</h3>
-                <p>{ind.desc}</p>
+            {testimonials.map((t, i) => (
+              <div key={i} className="testimonial">
+                <p>“{t.text}”</p>
+                <p style={{ marginTop: '1.5rem', fontWeight: '600' }}>
+                  — {t.name}<br />
+                  <span style={{ fontWeight: 'normal', color: '#666', fontSize: '0.95rem' }}>{t.role}</span>
+                </p>
               </div>
             ))}
           </div>
+        </section>
+        {/* Testimonials end */}
 
-          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-            <a href="#" className="btn">Explore Partner Properties</a>
+
+        {/* Industries start */}
+        <section style={{ background: '#f8f9fa', marginTop: "20px" }}>
+          <div className="container">
+            <h2 className="section-title">Industries We Serve</h2>
+            <p style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 3rem' }}>
+              Reliable, comfortable, and budget-friendly accommodation solutions — from hotels and premium PGs to modern dormitories — tailored for professionals, students, companies, and travelers across Punjab and Chandigarh.
+            </p>
+
+            <div className="grid-3">
+              {industries.map((ind, i) => (
+                <div key={i} className="card" style={{ textAlign: 'center' }}>
+                  <h3>{ind.title}</h3>
+                  <p>{ind.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+              <a href="#" className="btn">Explore Partner Properties</a>
+            </div>
           </div>
-        </div>
-      </section>
-      {/* Industries end */}
+        </section>
+        {/* Industries end */}
 
+      </div>
     </>
   )
 }
