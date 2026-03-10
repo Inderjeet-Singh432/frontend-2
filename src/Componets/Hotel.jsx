@@ -133,7 +133,7 @@ const HotelImageWrapper = styled.div`
 
 const HotelImage = styled.img`
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   object-position: center;
   transition: transform 0.45s ease;
@@ -367,7 +367,7 @@ function Hotels() {
             <p >"Book your perfect hotel with confidence – Support available anytime.".</p>
 
             <Hero>
-              <div className="container" style={{marginTop:"-60px", marginBottom:"-5px"}}>
+              <div className="container" style={{ marginTop: "-60px", marginBottom: "-5px" }}>
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -557,52 +557,95 @@ function Hotels() {
                     <Link to="#" className="btn btn-outline-secondary">View on Map</Link>
                   </div>
 
-                  <div className="row g-4">
+                  <div className="row">
                     <AnimatePresence>
                       {currentHotels.map((hotel, idx) => (
-                        <div className="col-md-6 col-lg-4" key={hotel.id}>
+                        <div className="col-12" style={{ marginTop: "30px" }} key={hotel.id}>
                           <HotelCard
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.08, duration: 0.5 }}
                           >
-                            <HotelImageWrapper>
-                              <HotelImage src={hotel.image} alt={hotel.name} />
-                            </HotelImageWrapper>
-                            <div className="p-3">
-                              <div className="d-flex justify-content-between align-items-start mb-2">
-                                <h5 className="mb-0">{hotel.name}</h5>
-                                <div className="d-flex align-items-center text-warning">
-                                  {[...Array(5)].map((_, i) => (
-                                    <Star
-                                      key={i}
-                                      size={16}
-                                      fill={i < Math.floor(hotel.rating) ? '#ffc107' : 'none'}
-                                    />
-                                  ))}
-                                  <small className="ms-1 text-muted">({hotel.rating})</small>
+                            {/* row start */}
+                            <div className='row'>
+                              {/* properity type badge start */}
+                              <div className='col-12 d-flex justify-content-end p-2'>
+                                <span className="badge " style={{ color: "black" }}>{hotel.type.toUpperCase()}</span>
+                              </div>
+                              {/* properity type badge start */}
+
+                              <div className='row'>
+                                {/* image start */}
+                                <div className='col-4'>
+                                  <HotelImageWrapper>
+                                    <HotelImage src={hotel.image} alt={hotel.name} />
+                                  </HotelImageWrapper>
                                 </div>
+                                {/* image end */}
+
+                                {/* name and description start */}
+                                <div className='col-6' >
+                                  {/* name and ratting start */}
+                                  <div className='col-12' style={{ height: "auto" }}>
+                                    <div className="d-flex justify-content-between align-items-start mb-2">
+                                      <h5 className="mb-0">{hotel.name}</h5>
+
+                                    </div>
+                                  </div>
+                                  {/* name and ratting end */}
+
+                                  {/* description start */}
+                                  <div className='col-12' style={{ marginTop: "20px" }}>
+                                    <p className="text-muted small mb-2">
+                                      <BiMapPin size={14} className="me-1" />
+                                      {hotel.location}
+                                    </p>
+                                    <p className="small mb-3">{hotel.desc}</p>
+                                  </div>
+                                  {/* description end */}
+                                </div>
+                                {/* name and description end */}
+
+                                {/* booking button start */}
+                                <div className='col-2'>
+                                  {/* raiting and price start */}
+                                  <div className="d-flex align-items-center text-warning" style={{ marginTop: "20px" }}>
+                                    {[...Array(5)].map((_, i) => (
+                                      <Star
+                                        key={i}
+                                        size={16}
+                                        fill={i < Math.floor(hotel.rating) ? '#ffc107' : 'none'}
+                                      />
+                                    ))}
+                                    <h6 className="ms-1 text-muted">({hotel.rating})</h6>
+                                  </div>
+                                  {/* raiting and price end */}
+
+                                  {/* price start  */}
+                                  <div className="d-flex justify-content-between align-items-center">
+                                    <h5 className="mb-0 text-primary" style={{ marginTop: "20px" }}>
+                                      ₹{hotel.price}<large className="text-muted"> / night</large>
+                                    </h5>
+                                  </div>
+                                  {/* price end  */}
+
+                                  <button
+                                    style={{ padding: "10px 20px", marginTop: "20px" }}
+                                    className="btn btn-sm btn-primary d-flex align-items-center justify-content-center"
+                                    onClick={() => {
+                                      setSelectedHotel(hotel)
+                                      setIsBookingOpen(true)
+                                    }}
+                                  >
+                                    Book now
+                                  </button>
+                                </div>
+                                {/* booking button end */}
+
                               </div>
-                              <p className="text-muted small mb-2">
-                                <BiMapPin size={14} className="me-1" />
-                                {hotel.location}
-                              </p>
-                              <p className="small mb-3">{hotel.desc}</p>
-                              <div className="d-flex justify-content-between align-items-center">
-                                <h5 className="mb-0 text-primary">
-                                  ₹{hotel.price}<small className="text-muted"> / night</small>
-                                </h5>
-                                <button
-                                  className="btn btn-primary px-4"
-                                  onClick={() => {
-                                    setSelectedHotel(hotel)
-                                    setIsBookingOpen(true)
-                                  }}
-                                >
-                                  Book Now
-                                </button>
-                              </div>
+
                             </div>
+                            {/* row end */}
                           </HotelCard>
                         </div>
                       ))}
