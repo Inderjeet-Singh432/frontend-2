@@ -65,6 +65,7 @@ import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import Modal from 'react-modal'
 import ApiServices from '../ApiServices'
+import ResponsivePaginationComponent from 'react-responsive-pagination';
 
 // Bind modal to root element (accessibility)
 Modal.setAppElement('#root')
@@ -262,6 +263,7 @@ function Hotels() {
   let [hotel, setHottel] = useState([])
   let [pg, setpg] = useState([])
   let [dormintory, setDormintory] = useState([])
+  const limit = 8
 
   useEffect(() => {
     ApiServices.propertyGetall()
@@ -269,7 +271,7 @@ function Hotels() {
         console.log(res?.data?.data);
         if (res?.data?.success) {
           setData(res?.data?.data)
-          settotalpages(Math.ceil(res?.data?.data?.length / hotelsPerPage))
+          settotalpages(Math.ceil(res?.data?.data?.length / limit))
           // TODO: when real API works → setHotels(res?.data?.data) instead of sampleHotels
         }
       })
@@ -532,11 +534,8 @@ function Hotels() {
 
       {/* Rest of your hotel page content */}
       <div className="container my-5 py-5">
-
         <div className="min-vh-100 bg-light">
-
           {/* Hero + Search - unchanged */}
-
 
           {/* Main Content */}
           <div className="container py-5">
@@ -640,141 +639,7 @@ function Hotels() {
               </div>
 
               <div className="col-lg-9">
-                {loading ? (
-                  <div className="text-center py-5 my-5">
-                    <ClipLoader color="#667eea" size={60} />
-                  </div>
-                ) : (
-                  <>
-                    <div className="d-flex justify-content-between align-items-center mb-4">
-                      <h4 className="mb-0">
-                        {filteredHotels.length} {filteredHotels.length === 1 ? 'stay' : 'stays'} found
-                      </h4>
-                      <Link to="#" className="btn btn-outline-secondary">View on Map</Link>
-                    </div>
-
-                    <div className="row">
-                      <AnimatePresence>
-                        {currentHotels.map((hotel, idx) => (
-                          <div className="col-12" style={{ marginTop: "30px" }} key={hotel.id}>
-                            <HotelCard
-                              initial={{ opacity: 0, y: 30 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: idx * 0.08, duration: 0.5 }}
-                            >
-                              {/* row start */}
-                              <div className='row'>
-                                {/* properity type badge start */}
-                                <div className='col-12 d-flex justify-content-end p-2'>
-                                  <span className="badge " style={{ color: "black" }}>{hotel.type.toUpperCase()}</span>
-                                </div>
-                                {/* properity type badge start */}
-
-                                <div className='row'>
-                                  {/* image start */}
-                                  <div className='col-4'>
-                                    <HotelImageWrapper>
-                                      <HotelImage src={hotel.image} alt={hotel.name} />
-                                    </HotelImageWrapper>
-                                  </div>
-                                  {/* image end */}
-
-                                  {/* name and description start */}
-                                  <div className='col-6' >
-                                    {/* name and ratting start */}
-                                    <div className='col-12' style={{ height: "auto" }}>
-                                      <div className="d-flex justify-content-between align-items-start mb-2">
-                                        <h5 className="mb-0">{hotel.name}</h5>
-
-                                      </div>
-                                    </div>
-                                    {/* name and ratting end */}
-
-                                    {/* description start */}
-                                    <div className='col-12' style={{ marginTop: "20px" }}>
-                                      <p className="text-muted small mb-2">
-                                        <BiMapPin size={14} className="me-1" />
-                                        {hotel.location}
-                                      </p>
-                                      <p className="small mb-3">{hotel.desc}</p>
-                                    </div>
-                                    {/* description end */}
-                                  </div>
-                                  {/* name and description end */}
-
-                                  {/* booking button start */}
-                                  <div className='col-2'>
-                                    {/* raiting and price start */}
-                                    <div className="d-flex align-items-center text-warning" style={{ marginTop: "20px" }}>
-                                      {[...Array(5)].map((_, i) => (
-                                        <Star
-                                          key={i}
-                                          size={16}
-                                          fill={i < Math.floor(hotel.rating) ? '#ffc107' : 'none'}
-                                        />
-                                      ))}
-                                      <h6 className="ms-1 text-muted">({hotel.rating})</h6>
-                                    </div>
-                                    {/* raiting and price end */}
-
-                                    {/* price start  */}
-                                    <div className="d-flex justify-content-between align-items-center">
-                                      <h5 className="mb-0 text-primary" style={{ marginTop: "20px" }}>
-                                        ₹{hotel.price}<large className="text-muted"> / night</large>
-                                      </h5>
-                                    </div>
-                                    {/* price end  */}
-
-                                    <button
-                                      style={{ padding: "10px 20px", marginTop: "20px" }}
-                                      className="btn btn-sm btn-primary d-flex align-items-center justify-content-center"
-                                      onClick={() => {
-                                        setSelectedHotel(hotel)
-                                        setIsBookingOpen(true)
-                                      }}
-                                    >
-                                      Book now
-                                    </button>
-                                  </div>
-                                  {/* booking button end */}
-
-                                </div>
-
-                              </div>
-                              {/* row end */}
-                            </HotelCard>
-                          </div>
-                        ))}
-                      </AnimatePresence>
-                    </div>
-
-                    {totalPages > 1 && (
-                      <nav className="mt-5">
-                        <ul className="pagination justify-content-center">
-                          {[...Array(totalPages)].map((_, i) => (
-                            <li
-                              key={i}
-                              className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}
-                            >
-                              <button
-                                className="page-link"
-                                onClick={() => setCurrentPage(i + 1)}
-                              >
-                                {i + 1}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      </nav>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* ─── IMPROVED BOOKING MODAL ─────────────────────────────────────────────── */}
-          <Modal
+                   <Modal
             isOpen={isBookingOpen}
             onRequestClose={() => setIsBookingOpen(false)}
             style={{
@@ -843,6 +708,143 @@ function Hotels() {
               </BookingModalContent>
             )}
           </Modal>
+                {loading ? (
+                  <div className="text-center py-5 my-5">
+                    <ClipLoader color="#667eea" size={60} />
+                  </div>
+                ) : (
+                  <>
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                      <h4 className="mb-0">
+                        {filteredHotels.length} {filteredHotels.length === 1 ? 'stay' : 'stays'} found
+                      </h4>
+                      <Link to="#" className="btn btn-outline-secondary">View on Map</Link>
+                    </div>
+
+
+                    <div className="row g-4">y
+                      <AnimatePresence>
+                        {data
+                          ?.slice((currentPage - 1) * limit, (currentPage - 1) * limit + limit).map((el, i) => (
+                            <div className="col-12" key={el._id || el.id || i}>
+                              <HotelCard
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.08, duration: 0.5 }}
+                                className="h-100 shadow-sm border-0"
+                              >
+                                <div className="row g-0">
+                                  {/* Image column */}
+                                  <div className="col-12 col-md-4">
+                                    <HotelImageWrapper className="h-100">
+                                      <HotelImage
+                                        src={el?.image?.[0] || el?.image || "/placeholder-hotel.jpg"}
+                                        alt={el?.siteName || el?.siteName || "Property"}
+                                        className="w-100 h-100 object-fit-cover rounded-start"
+                                      />
+                                    </HotelImageWrapper>
+                                  </div>
+
+                                  {/* Content column */}
+                                  <div className="col-12 col-md-8">
+                                    <div className="card-body d-flex flex-column h-100 p-4">
+                                      {/* Badge + Name row */}
+                                      <div className="d-flex justify-content-between align-items-start mb-2 flex-wrap gap-2">
+                                        <h5 className="mb-0 fw-semibold">
+                                          {el?.siteName || el?.siteName || "Property Name"}
+                                        </h5>
+
+                                        <span
+                                          className="badge bg-light text-dark border px-3 py-2"
+                                          style={{ fontSize: "0.85rem" }}
+                                        >
+                                          {(el?.siteType || el?.siteType || "?").toUpperCase()}
+                                        </span>
+                                      </div>
+
+                                      {/* Location */}
+                                      <p className="text-muted mb-1 d-flex align-items-center">
+                                        <BiMapPin size={15} className="me-1 flex-shrink-0" />
+                                        {el?.address || el?.location || "Location not specified"}
+                                      </p>
+
+                                      {/* Short description */}
+                                      <p className="text-muted small mb-3 line-clamp-3">
+                                        {el?.description || el?.city || "No description available"}
+                                      </p>
+
+                                      {/* Footer – rating + price + button */}
+                                      <div className="mt-auto">
+                                        <div className="d-flex justify-content-between align-items-end flex-wrap gap-3">
+                                          {/* Rating */}
+                                          <div className="d-flex align-items-center">
+                                            <div className="text-warning me-2">
+                                              {[...Array(5)].map((_, starIdx) => (
+                                                <Star
+                                                  key={starIdx}
+                                                  size={17}
+                                                  fill={starIdx < Math.floor(el?.rating || 0) ? "#ffc107" : "none"}
+                                                  stroke={starIdx < Math.floor(el?.rating || 0) ? "#ffc107" : "#e0e0e0"}
+                                                />
+                                              ))}
+                                            </div>
+                                            <span className="text-muted small fw-medium">
+                                              {(el?.rating || 0).toFixed(1)}
+                                            </span>
+                                          </div>
+
+                                          {/* Price + Button */}
+                                          <div className="d-flex align-items-center gap-4">
+                                            <div className="text-end">
+                                              <h5 className="mb-0 fw-bold text-primary">
+                                                ₹{el?.price ?? "—"}
+                                              </h5>
+                                              <small className="text-muted">/ night</small>
+                                            </div>
+
+                                            <button
+                                              className="btn btn-primary px-4"
+                                              onClick={() => {
+                                                setSelectedHotel(el);
+                                                setIsBookingOpen(true);
+                                              }}
+                                            >
+                                              Book now
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </HotelCard>
+                            </div>
+                          ))}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* pagination start */}
+                    <div className="row">
+                      <div className="col" style={{ backgroundColor: "#f5f7f6" }}
+                        colSpan={5}
+                      >
+                        <ResponsivePaginationComponent
+                          current={currentPage}
+                          total={totalpages}
+                          onPageChange={setCurrentPage}
+                        />
+                      </div>
+                    </div>
+                    {/* pagination end */}
+
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ─── IMPROVED BOOKING MODAL ─────────────────────────────────────────────── */}
+       
 
         </div>
 
