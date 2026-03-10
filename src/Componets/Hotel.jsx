@@ -366,15 +366,15 @@ function Hotels() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          minHeight: '80vh',           // or '100vh' for full viewport
+          minHeight: '80vh',
           height: 'auto',
         }}
       >
-        {/* Dark overlay for readability */}
+        {/* Dark overlay – slightly stronger for better readability */}
         <div
           className="position-absolute top-0 start-0 w-100 h-100"
           style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.45)', // 45% dark overlay
+            backgroundColor: 'rgba(0, 0, 0, 0.50)', // ← was 0.45, now 0.50
             zIndex: 1,
           }}
         ></div>
@@ -383,82 +383,151 @@ function Hotels() {
         <div className="container-fluid position-relative" style={{ zIndex: 2 }}>
           <div className="row justify-content-center">
             <div className="col-lg-8 col-xl-7">
-              <h3>"Hassle-free hotel booking with trusted customer support."</h3>
-              <h1 className="display-3 fw-bold mb-4">   Discover Luxury Hotels with MSB     </h1>
+
+              <h3 className="mb-2 fw-light">"Hassle-free hotel booking with trusted customer support."</h3>
+              <h1 className="display-3 fw-bold mb-4">
+                Discover Luxury Hotels with MSB
+              </h1>
               <p className="lead fs-4 mb-5">
-                "Book your perfect hotel with confidence – Support available anytime.with MSB (Multiple Stay Booking Site)"
+                "Book your perfect hotel with confidence – Support available anytime. with MSB (Multiple Stay Booking Site)"
               </p>
 
-              {/* Optional: Simple search bar like MakeMyTrip */}
-              <Hero>
-                <div className="container" style={{ marginTop: "-80px", marginBottom: "-5px"}}>
-                  <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="display-4 fw-bold mb-4 text-center"
-                    style={{ fontSize: "40px" }}                >
-                    <BiHotel className="me-3" style={{ fontSize: '3.2rem' }} />
-                    Find Your Perfect Stay
-                  </motion.h1>
+              {/* Search form area – glass effect */}
+              <div
+                className="rounded-4 p-4 shadow-lg"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.16)', // semi-transparent
+                  backdropFilter: 'blur(12px)',                 // frosted glass look
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  marginTop: "-60px",                           // adjusted your negative margin
+                  marginBottom: "20px",
+                }}
+              >
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="display-4 fw-bold mb-4 text-center text-white"
+                  style={{ fontSize: "40px" }}
+                >
+                  <BiHotel className="me-3" style={{ fontSize: '3.2rem' }} />
+                  Find Your Perfect Stay
+                </motion.h1>
 
-                  <SearchForm onSubmit={(e) => { e.preventDefault(); setCurrentPage(1) }} >
-                    <div className="row g-3 align-items-end" >
-                      <div className="col-md-4" >
-                        <label className="form-label fw-bold"><BiMapPin className="me-1" /> Location</label>
-                        <input
-                          type="text"
-                          className="form-control form-control-lg"
-                          placeholder="Jalandhar, Punjab..."
-                          value={search.location}
-                          onChange={e => setSearch({ ...search, location: e.target.value })}
-                        />
-                      </div>
-                      <div className="col-md-3">
-                        <label className="form-label fw-bold"><Calendar className="me-1" /> Check-in</label>
-                        <DatePicker
-                          selected={search.checkIn}
-                          onChange={date => setSearch({ ...search, checkIn: date })}
-                          className="form-control form-control-lg"
-                          minDate={new Date()}
-                          dateFormat="dd MMM yyyy"
-                        />
-                      </div>
-                      <div className="col-md-3">
-                        <label className="form-label fw-bold">Check-out</label>
-                        <DatePicker
-                          selected={search.checkOut}
-                          onChange={date => setSearch({ ...search, checkOut: date })}
-                          className="form-control form-control-lg"
-                          minDate={search.checkIn}
-                          dateFormat="dd MMM yyyy"
-                        />
-                      </div>
-                      <div className="col-md-2" >
-                        <label className="form-label fw-bold"><Users className="me-1" /> Guests</label>
-                        <select
-                          className="form-select form-select-lg"
-                          value={search.guests}
-                          onChange={e => setSearch({ ...search, guests: Number(e.target.value) })}
-                        >
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4+</option>
-                        </select>
-                      </div>
+                <SearchForm onSubmit={(e) => { e.preventDefault(); setCurrentPage(1) }}>
+                  <div className="row g-3 align-items-end">
+
+                    {/* Location */}
+                    <div className="col-md-4">
+                      <label
+                        className="form-label fw-bold"
+                        style={{ color: "#000000" }}
+                      >
+                        <BiMapPin className="me-1" /> Location
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg bg-white"  // changed to white bg so black text is visible
+                        style={{
+                          color: "#000000",
+                          border: "1px solid #000000",
+                          backgroundColor: "#ffffff",
+                        }}
+                        placeholder="Jalandhar, Punjab..."
+                        value={search.location}
+                        onChange={e => setSearch({ ...search, location: e.target.value })}
+                      />
                     </div>
 
-                    <button type="submit" className="btn btn-light w-100 mt-4 fw-bold">
-                      Book now
-                    </button>
-                  </SearchForm>
-                </div>
-              </Hero>
+                    {/* Check-in */}
+                    <div className="col-md-3">
+                      <label
+                        className="form-label fw-bold"
+                        style={{ color: "#000000" }}
+                      >
+                        <Calendar className="me-1" /> Check-in
+                      </label>
+                      <DatePicker
+                        selected={search.checkIn}
+                        onChange={date => setSearch({ ...search, checkIn: date })}
+                        className="form-control form-control-lg"
+                        style={{
+                          color: "#000000",
+                          border: "1px solid #000000",
+                          backgroundColor: "#ffffff",
+                        }}
+                        minDate={new Date()}
+                        dateFormat="dd MMM yyyy"
+                      />
+                    </div>
+
+                    {/* Check-out */}
+                    <div className="col-md-3">
+                      <label
+                        className="form-label fw-bold"
+                        style={{ color: "#000000" }}
+                      >
+                        Check-out
+                      </label>
+                      <DatePicker
+                        selected={search.checkOut}
+                        onChange={date => setSearch({ ...search, checkOut: date })}
+                        className="form-control form-control-lg"
+                        style={{
+                          color: "#000000",
+                          border: "1px solid #000000",
+                          backgroundColor: "#ffffff",
+                        }}
+                        minDate={search.checkIn}
+                        dateFormat="dd MMM yyyy"
+                      />
+                    </div>
+
+                    {/* Guests */}
+                    <div className="col-md-2">
+                      <label
+                        className="form-label fw-bold"
+                        style={{ color: "#000000" }}
+                      >
+                        <Users className="me-1" /> Guests
+                      </label>
+                      <select
+                        className="form-select form-select-lg"
+                        style={{
+                          color: "#000000",
+                          border: "1px solid #000000",
+                          backgroundColor: "#ffffff",
+                        }}
+                        value={search.guests}
+                        onChange={e => setSearch({ ...search, guests: Number(e.target.value) })}
+                      >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4+</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn w-100 mt-4 fw-bold fs-5 py-3"
+                    style={{
+                      backgroundColor: '#0d6efd',
+                      borderColor: '#0d6efd',
+                      color: '#ffffff',
+                    }}
+                  >
+                    Book now
+                  </button>
+                </SearchForm>
+              </div>
+
             </div>
           </div>
         </div>
       </section>
+      {/* Hero Section */}
 
 
       {/* Rest of your hotel page content */}

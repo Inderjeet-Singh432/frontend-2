@@ -24,23 +24,54 @@ const blogs = [
     desc: "24×7 power backup, hygienic kitchens, high-speed internet, biometric security, RO water — the non-negotiable features that separate good stays from great ones in 2025."
   },
 ];
+import heroBg from '/public/Assets/Images/1.jpg'; // ← adjust path if in public/
 
 export default function About() {
   return (
     <>
-      <section className="hero" style={{ marginBottom: "50px", paddingTop: "100px" }} >
-        <div className="container" >
-          <div className="hero-content">
-            <h2>"Hassle-free hotel booking with trusted customer support."</h2>
-            <h1>MSB: "Your comfort is our priority – Get instant booking assistance."</h1>
-            <p >"Book your perfect hotel with confidence – Support available anytime.".</p>
+      {/* Hero Section */}
+      <section
+        className="hero-section position-relative d-flex align-items-center justify-content-center text-center text-white"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          minHeight: '80vh',
+          height: 'auto',
+        }}
+      >
+        {/* Dark overlay – slightly stronger for better readability */}
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100"
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.50)', // ← was 0.45, now 0.50
+            zIndex: 1,
+          }}
+        ></div>
+
+        {/* Content on top */}
+        <div className="container-fluid position-relative" style={{ zIndex: 2 }}>
+          <div className="row justify-content-center">
+            <div className="col-lg-8 col-xl-7">
+
+              <h3 className="mb-2 fw-light">"Hassle-free hotel booking with trusted customer support."</h3>
+              <h1 className="display-3 fw-bold mb-4">
+                Discover Luxury Hotels with MSB
+              </h1>
+              <p className="lead fs-4 mb-5">
+                "Book your perfect hotel with confidence – Support available anytime. with MSB (Multiple Stay Booking Site)"
+              </p>
+
+            </div>
           </div>
         </div>
       </section>
+      {/* Hero Section */}
 
 
       {/* about paragraph start */}
-      <section className="container" style={{ marginTop: "100px" }}>
+      <section className="container" style={{ marginTop: "40px" }}>
         <h2 className="section-title" style={{ textAlign: 'left', marginLeft: "10%" }}>About us</h2>
         <p style={{ maxWidth: '8000px', margin: '0 auto 2rem', textAlign: 'justify', fontSize: '1.2rem' }}>
           Multiple Stay Booking Site (MSB) is a smart and convenient platform designed to help travelers, students, and professionals find the perfect place to stay. Our platform brings together multiple accommodation options in one place, allowing users to easily search and book Hotels, PGs (Paying Guest), and Dormitories without the hassle of visiting different websites.      </p>

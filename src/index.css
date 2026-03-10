@@ -86,78 +86,110 @@
   background: #0055dd;
   transform: translateY(-2px);
 }
-/* src/components/Header.css */
-.navbar {
-  transition: background-color 0.3s ease;
+
+
+/* Improve placeholder visibility on transparent inputs */
+.form-control::placeholder,
+.form-select option {
+   background: transparent !important;
+  color: rgb(84, 84, 87) !important;
 }
 
-.navbar.scrolled {
-  background-color: rgba(0, 0, 0, 0.9) !important; /* darker on scroll - optional */
+/* DatePicker wrapper fix (react-datepicker often needs this) */
+.react-datepicker-wrapper {
+  width: 100%;
+  
 }
 
-.nav-link {
-  font-weight: 500;
-  padding: 0.6rem 1.2rem !important;
-  transition: all 0.25s;
+.react-datepicker__input-container input {
+  background: transparent !important;
+  color: rgb(84, 84, 87) !important;
+  border: 1px solid rgba(0, 0, 0, 0.5) !important;
 }
 
-.nav-link:hover,
-.nav-link.active {
-  color: #ffffff !important;
-}
-
-.navbar-brand {
-  letter-spacing: 1px;
-}
-
-/* Make Sign Up button nicer */
-.nav-link.btn-outline-light {
-  padding: 0.5rem 1.3rem !important;
-  font-weight: 600;
-}
-
-.nav-link.btn-outline-light:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+/* Optional hover effect on button */
+.btn-primary:hover {
+  background-color: #0b5ed7 !important;
+  border-color: #0a58ca !important;
 }
 
 
 
-/* Hero section enhancements */
-.hero-section {
-  background-attachment: fixed;           /* parallax feel — optional, remove if you don't like it */
+/* === Search form container enhancements === */
+.hero-section .container > div {   /* targeting the div with negative margins */
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  padding: 2rem 1.8rem;
+  border: 1px solid rgba(220, 220, 220, 0.6);
+  backdrop-filter: blur(4px);        /* very subtle glass feel */
 }
 
-.hero-section h1 {
-  text-shadow: 0 3px 12px rgba(0,0,0,0.7);
-  letter-spacing: -0.5px;
+/* Labels – more elegant & prominent */
+.form-label.fw-bold {
+  color: #1a1a1a !important;
+  font-size: 1.05rem;
+  margin-bottom: 0.55rem;
+  letter-spacing: 0.3px;
 }
 
-.hero-section .lead {
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+/* All inputs & select – unified attractive style */
+.form-control-lg,
+.form-select-lg {
+  border: 1.5px solid #ced4da !important;
+  border-radius: 10px !important;
+  padding: 0.75rem 1.1rem !important;
+  font-size: 1.05rem !important;
+  color: #212529 !important;
+  background-color: #ffffff !important;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: 60vh;                    /* smaller on mobile */
-  }
-
-  .hero-section h1 {
-    font-size: 2.5rem;                   /* smaller heading */
-  }
-
-  .hero-section .lead {
-    font-size: 1.25rem;
-  }
-
-  .hero-section .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+.form-control-lg:focus,
+.form-select-lg:focus {
+  border-color: #0d6efd !important;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.18) !important;
+  background-color: #ffffff !important;
 }
 
-@media (max-width: 576px) {
-  .hero-section {
-    min-height: 50vh;
-  }
+/* Placeholder text – softer but still very readable */
+.form-control-lg::placeholder {
+  color: #9aa0a6 !important;
+  opacity: 1 !important;
+}
+
+/* Select options – clean dark text on white */
+.form-select option {
+  background-color: #ffffff;
+  color: #212529;
+}
+
+/* Button – more premium & eye-catching */
+.hero-section .btn {
+  border-radius: 10px !important;
+  padding: 0.9rem 1.5rem !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%) !important;
+  border: none !important;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(13, 110, 253, 0.28) !important;
+}
+
+.hero-section .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(13, 110, 253, 0.38) !important;
+  background: linear-gradient(135deg, #0b5ed7 0%, #0a4fc2 100%) !important;
+}
+
+/* Icons in labels – slightly larger & colored */
+.form-label svg,
+.form-label .bi {
+  font-size: 1.3rem;
+  color: #0d6efd;
+  margin-right: 0.5rem;
+  vertical-align: -0.15em;
 }

@@ -8,6 +8,7 @@ export default function Header() {
   const closeMenu = () => setIsExpanded(false);
 
   return (
+   <>
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
         <div className="container">
@@ -119,5 +120,7 @@ export default function Header() {
         </div>
       </nav>
     </header>
+    
+   </>
   );
 }
