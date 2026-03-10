@@ -520,7 +520,7 @@ function Hotels() {
                       color: '#ffffff',
                     }}
                   >
-                    Book now
+                    Find  now
                   </button>
                 </SearchForm>
               </div>
@@ -765,7 +765,7 @@ function Hotels() {
                                       {/* Location */}
                                       <p className="text-muted mb-1 d-flex align-items-center">
                                         <BiMapPin size={15} className="me-1 flex-shrink-0" />
-                                        {el?.address || el?.location || "Location not specified"}
+                                        {el?.address || el?.address || "Location not specified"}
                                       </p>
 
                                       {/* Short description */}
@@ -842,10 +842,6 @@ function Hotels() {
               </div>
             </div>
           </div>
-
-          {/* ─── IMPROVED BOOKING MODAL ─────────────────────────────────────────────── */}
-       
-
         </div>
 
 

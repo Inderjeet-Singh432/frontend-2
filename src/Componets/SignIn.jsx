@@ -1,6 +1,5 @@
 // src/pages/OwnerLogin.jsx
 import React, { useState } from 'react';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { toast } from 'react-toastify';
 import ApiServices from '../ApiServices';
 import { useNavigate } from 'react-router-dom';
@@ -63,21 +62,8 @@ export default function LoginPage() {
         }
     };
 
-    const handleGoogleSuccess = (credentialResponse) => {
-        console.log(credentialResponse);
-        toast.success("Google login successful! (demo mode)");
-        // Here you would normally send credentialResponse.credential to backend
-        setTimeout(() => {
-            navigate('/owner/dashboard');
-        }, 1200);
-    };
-
-    const handleGoogleFailure = () => {
-        toast.error('Google login failed. Please try again.');
-    };
 
     return (
-        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"}>
             <div
                 style={{
                     marginTop: '80px',
@@ -327,24 +313,7 @@ export default function LoginPage() {
                         )}
                     </div>
 
-                    {/* Google Sign In */}
-                    <div style={{ margin: '32px 0', textAlign: 'center' }}>
-                        <div style={{ fontSize: '1rem', color: '#cbd5e1', marginBottom: '16px' }}>
-                            or continue with
-                        </div>
-                        <GoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={handleGoogleFailure}
-                            useOneTap={false}
-                            theme="filled_blue"
-                            size="large"
-                            text="signin_with"
-                            shape="rectangular"
-                            logo_alignment="left"
-                            width="100%"
-                        />
-                    </div>
-
+              
                     <div style={{ textAlign: 'center', marginTop: '40px', fontSize: '1rem' }}>
                         <a href="" style={{ color: '#a5b4fc', textDecoration: 'none' }}>
                             Forgot password?
@@ -370,6 +339,5 @@ export default function LoginPage() {
                     @keyframes float1 { ... } /* etc. */
                 `}</style>
             </div>
-        </GoogleOAuthProvider>
     );
 }

@@ -1,25 +1,28 @@
 // src/pages/OwnerDashboard.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import ApiServices from '../ApiServices';
+import ResponsivePaginationComponent from 'react-responsive-pagination';
 
 const OwnerDashboard = () => {
   const navigate = useNavigate();
 
   // Mock data - in real app, fetch from API
-  const [properties, setProperties] = useState([
-    {
-      id: 1,
-      name: 'Cozy PG Sector 34',
-      type: 'PG',
-      addressLine1: 'House 123, Main Road',
-      description: 'Fully furnished rooms with AC and meals...',
-      licenseNumber: 'PG/2024/001',
-      imageCount: 5,
-      pricePerNight: 450,
-      status: 'Active',
-    },
-  ]);
+
+  // const [properties, setProperties] = useState([
+  //   {
+  //     id: 1,
+  //     name: 'Cozy PG Sector 34',
+  //     type: 'PG',
+  //     addressLine1: 'House 123, Main Road',
+  //     description: 'Fully furnished rooms with AC and meals...',
+  //     licenseNumber: 'PG/2024/001',
+  //     imageCount: 5,
+  //     pricePerNight: 450,
+  //     status: 'Active',
+  //   },
+  // ]);
 
   const [bookings, setBookings] = useState([
     {
@@ -292,7 +295,31 @@ const OwnerDashboard = () => {
       </section>
     </div>
   );
+  // -------------------------------------------------------------------------------------------------------api start
+  var [properties, setproperties] = useState([])
+  let [totalpages, settotalpages] = useState([])
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 5
 
+  var nav = useNavigate()
+
+  useEffect(() => {
+    ApiServices.propertyGetall({ email: sessionStorage.getItem("email") })
+      .then((res) => {
+        if (res?.data?.success) {
+          setproperties(res?.data?.data)
+          console.log(res?.data?.data);
+          settotalpages(Math.ceil(res?.data?.data?.length / limit))
+        }
+        else {
+          // console.log("then block called but got error");
+        }
+      })
+      .catch((err) => {
+        // console.log("error is", err);
+      })
+  }, [])
+  // -------------------------------------------------------------------------------------------------------api end
   const renderProperties = () => (
     <section style={{ background: 'white', borderRadius: '12px', padding: '28px', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}>
       <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1e2937', marginBottom: '20px' }}>My Properties</h2>
@@ -302,11 +329,18 @@ const OwnerDashboard = () => {
         </div>
       ) : (
         <div style={{ display: 'grid', gap: '20px' }}>
-          {properties.map((prop) => (
+
+          {properties?.slice((currentPage - 1) * limit, ((currentPage - 1) * limit) + limit).map((prop, i) => (
+
             <div key={prop.id} style={{ border: '1px solid #e5e7eb', borderRadius: '10px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <p>{(currentPage - 1) * limit + i + 1}</p>
+              <div className=''>
+                <img src={prop.images} alt={prop.siteName} style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: '8px', marginRight: '20px' }} />
+              </div>
               <div>
-                <h3 style={{ margin: '0 0 6px', fontSize: '1.25rem' }}>{prop.name}</h3>
-                <p style={{ margin: '0 0 4px', color: '#4b5563' }}>{prop.type} • ₹{prop.pricePerNight}/night • License: {prop.licenseNumber || 'N/A'}</p>
+
+                <h3 style={{ margin: '0 0 6px', fontSize: '1.25rem' }}>{prop.siteName}</h3>
+                <p style={{ margin: '0 0 4px', color: '#4b5563' }}>{prop.sitetype} • ₹{prop.address}/night • License: {prop.city || 'N/A'}</p>
                 <p style={{ margin: '0', fontSize: '0.9rem', color: '#6b7280' }}>{prop.description.substring(0, 80)}...</p>
               </div>
               <div style={{ textAlign: 'right' }}>
@@ -318,6 +352,17 @@ const OwnerDashboard = () => {
               </div>
             </div>
           ))}
+          <div className="row">
+            <div className="col" style={{ backgroundColor: "#f5f7f6" }}
+              colSpan={5}
+            >
+              <ResponsivePaginationComponent
+                current={currentPage}
+                total={totalpages}
+                onPageChange={setCurrentPage}
+              />
+            </div>
+          </div>
         </div>
       )}
     </section>

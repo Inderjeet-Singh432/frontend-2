@@ -1,6 +1,5 @@
 // src/pages/OwnerSignUp.jsx
 import React, { useState } from 'react';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { toast } from 'react-toastify';
 import ApiServices from '../ApiServices';           // ← imported API service
 import { FiEye, FiEyeOff } from 'react-icons/fi';
@@ -76,21 +75,7 @@ export default function SignUp() {
     }
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
-    console.log('Google Sign Up:', credentialResponse);
-    toast.success('Google sign-up successful! (sending to backend...)');
-    // Here you should send credentialResponse.credential to your backend
-    setTimeout(() => {
-      window.location.href = '/owner/dashboard';
-    }, 1500);
-  };
-
-  const handleGoogleFailure = () => {
-    toast.error('Google sign-up failed. Please try again.');
-  };
-
   return (
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"}>
       <div
         style={{
           marginTop: '90px',
@@ -428,25 +413,6 @@ export default function SignUp() {
             )}
           </div>
 
-          {/* Google Sign Up */}
-          <div style={{ margin: '32px 0', textAlign: 'center' }}>
-            <div style={{ fontSize: '1rem', color: '#cbd5e1', marginBottom: '16px' }}>
-              or sign up with
-            </div>
-
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={handleGoogleFailure}
-              useOneTap={false}
-              theme="filled_blue"
-              size="large"
-              text="signup_with"
-              shape="rectangular"
-              logo_alignment="left"
-              width="100%"
-            />
-          </div>
-
           <div style={{ textAlign: 'center', marginTop: '36px', fontSize: '1rem' }}>
             <p style={{ color: '#cbd5e1' }}>
               Already have an account?{' '}
@@ -470,6 +436,5 @@ export default function SignUp() {
           /* ... rest of your animations ... */
         `}</style>
       </div>
-    </GoogleOAuthProvider>
   );
 }
