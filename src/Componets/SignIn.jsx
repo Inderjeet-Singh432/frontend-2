@@ -16,7 +16,7 @@ export default function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Basic client-side check (optional but recommended)
         if (!email || !password) {
             toast.warn("Please fill in all fields");
@@ -64,18 +64,17 @@ export default function LoginPage() {
 
 
     return (
+        <>
             <div
                 style={{
-                    marginTop: '80px',
+                    marginTop: '90px',
                     position: 'relative',
                     minHeight: '100vh',
                     overflow: 'hidden',
-                    background: 'linear-gradient(135deg, #0a001f 0%, #1a0033 50%, #0f0c29 100%)',
-                    fontFamily: 'system-ui, -apple-system, sans-serif',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '20px',
+                    padding: '20px 16px',
                 }}
             >
                 {/* Background elements */}
@@ -89,106 +88,89 @@ export default function LoginPage() {
                     <div className="particles" />
                 </div>
 
-                {/* Login Card */}
+                {/* Sign Up Card */}
                 <div
                     style={{
                         position: 'relative',
                         zIndex: 1,
-                        background: 'rgba(20, 25, 45, 0.65)',
+                        background: 'rgb(43, 71, 106)',
                         backdropFilter: 'blur(22px)',
                         borderRadius: '28px',
                         border: '1px solid rgba(255,255,255,0.12)',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.75), inset 0 0 60px rgba(99,102,241,0.15)',
-                        padding: '56px 52px',
+                        padding: '52px 48px',
                         width: '100%',
-                        maxWidth: '480px',
+                        maxWidth: '500px',
                         color: 'white',
                     }}
                 >
                     <div
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            height: '7px',
-                            background: 'linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f472b6)',
-                            boxShadow: '0 8px 30px rgba(139,92,246,0.7)',
-                        }}
+
                     />
 
-                    <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '44px' }}>
                         <h1
                             style={{
-                                fontSize: '3.4rem',
+                                fontSize: '3.2rem',
                                 fontWeight: '900',
-                                margin: '0 0 12px',
+                                margin: '0 0 10px',
                                 background: 'linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6, #ec4899)',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
-                                letterSpacing: '-3px',
+                                letterSpacing: '-2px',
                             }}
                         >
                             MSB
                         </h1>
-                        <p style={{ color: '#c7d2fe', fontSize: '1.3rem', margin: 0 }}>
-                            Owner Portal • Grow Your Business
+                        <p style={{ color: '#c7d2fe', fontSize: '1.25rem', margin: 0 }}>
+                           Sign In Your Account
                         </p>
                     </div>
 
                     {error && (
                         <div
-                            style={{
-                                background: 'rgba(220,38,38,0.25)',
-                                color: '#fca5a5',
-                                padding: '16px',
-                                borderRadius: '14px',
-                                marginBottom: '36px',
-                                textAlign: 'center',
-                                border: '1px solid rgba(220,38,38,0.4)',
-                            }}
+
                         >
                             {error}
                         </div>
                     )}
 
-                    {/* Form + Loader overlay */}
                     <div style={{ position: 'relative' }}>
-                        <form 
-                            onSubmit={handleSubmit} 
-                            style={{ 
-                                opacity: loading ? 0.4 : 1, 
+                        <form
+                            onSubmit={handleSubmit}
+                            style={{
+                                opacity: loading ? 0.4 : 1,
                                 pointerEvents: loading ? 'none' : 'auto',
-                                transition: 'opacity 0.4s ease'
+                                transition: 'opacity 0.4s ease',
                             }}
                         >
+
                             {/* Email */}
-                            <div style={{ marginBottom: '32px' }}>
-                                <label htmlFor="email" style={{ display: 'block', marginBottom: '12px', color: '#e0e7ff', fontWeight: 500, fontSize: '1.05rem' }}>
-                                    Email
+                            <div style={{ marginBottom: '28px' }}>
+                                <label htmlFor="email" style={{ display: 'block', marginBottom: '10px', color: '#e0e7ff', fontWeight: 500 }}>
+                                    Email Address
                                 </label>
                                 <input
                                     id="email"
+                                    name="email"
                                     type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+
                                     placeholder="enter your email"
                                     required
-                                    disabled={loading}
                                     style={{
                                         width: '100%',
-                                        padding: '18px 20px',
-                                        background: 'rgba(255,255,255,0.08)',
+                                        padding: '16px 18px',
+                                        background: 'rgb(255, 255, 255)',
                                         border: '1px solid rgba(255,255,255,0.16)',
-                                        borderRadius: '16px',
-                                        color: 'white',
-                                        fontSize: '1.1rem',
+                                        borderRadius: '14px',
+                                        color: 'black',
+                                        fontSize: '1.05rem',
                                         transition: 'all 0.3s',
                                         outline: 'none',
                                     }}
                                     onFocus={e => {
                                         e.target.style.borderColor = '#60a5fa';
-                                        e.target.style.boxShadow = '0 0 0 5px rgba(96,165,250,0.3)';
+                                        e.target.style.boxShadow = '0 0 0 4px rgba(96,165,250,0.25)';
                                     }}
                                     onBlur={e => {
                                         e.target.style.boxShadow = 'none';
@@ -197,7 +179,7 @@ export default function LoginPage() {
                                 />
                             </div>
 
-                            {/* Password with show/hide toggle */}
+                            {/* Password with toggle */}
                             <div style={{ marginBottom: '44px', position: 'relative' }}>
                                 <label htmlFor="password" style={{ display: 'block', marginBottom: '12px', color: '#e0e7ff', fontWeight: 500, fontSize: '1.05rem' }}>
                                     Password
@@ -214,10 +196,10 @@ export default function LoginPage() {
                                         style={{
                                             width: '100%',
                                             padding: '18px 48px 18px 20px',
-                                            background: 'rgba(255,255,255,0.08)',
+                                            background: 'rgb(255, 255, 255)',
                                             border: '1px solid rgba(255,255,255,0.16)',
                                             borderRadius: '16px',
-                                            color: 'white',
+                                            color: 'black',
                                             fontSize: '1.1rem',
                                             transition: 'all 0.3s',
                                             outline: 'none',
@@ -252,32 +234,31 @@ export default function LoginPage() {
                                 </div>
                             </div>
 
+
                             <button
                                 type="submit"
                                 disabled={loading}
                                 style={{
                                     width: '100%',
-                                    padding: '18px',
-                                    background: loading 
-                                        ? 'rgba(59,130,246,0.55)' 
-                                        : 'linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6, #ec4899)',
+                                    padding: '16px',
+                                    background: loading ? 'rgba(59,130,246,0.55)' : 'linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6)',
                                     color: 'white',
                                     border: 'none',
-                                    borderRadius: '16px',
-                                    fontSize: '1.15rem',
+                                    borderRadius: '14px',
+                                    fontSize: '1.1rem',
                                     fontWeight: 700,
                                     cursor: loading ? 'not-allowed' : 'pointer',
                                     transition: 'all 0.3s',
-                                    boxShadow: loading ? 'none' : '0 14px 40px rgba(59,130,246,0.5)',
+                                    boxShadow: loading ? 'none' : '0 10px 30px rgba(59,130,246,0.45)',
                                 }}
-                                onMouseOver={e => !loading && (e.currentTarget.style.transform = 'translateY(-4px)')}
+                                onMouseOver={e => !loading && (e.currentTarget.style.transform = 'translateY(-3px)')}
                                 onMouseOut={e => !loading && (e.currentTarget.style.transform = 'translateY(0)')}
                             >
-                                {loading ? 'Signing in...' : 'Sign In to Dashboard'}
+                                {loading ? 'Creating account...' : 'Sign in'}
                             </button>
                         </form>
 
-                        {/* Loader overlay when loading = true */}
+                        {/* Loader Overlay */}
                         {loading && (
                             <div
                                 style={{
@@ -294,17 +275,19 @@ export default function LoginPage() {
                                     color: 'white',
                                 }}
                             >
-                                <div style={{
-                                    width: '64px',
-                                    height: '64px',
-                                    border: '6px solid rgba(255,255,255,0.15)',
-                                    borderTop: '6px solid #a78bfa',
-                                    borderRadius: '50%',
-                                    animation: 'spin 1.1s linear infinite',
-                                    marginBottom: '24px'
-                                }} />
+                                <div
+                                    style={{
+                                        width: '64px',
+                                        height: '64px',
+                                        border: '6px solid rgba(255,255,255,0.15)',
+                                        borderTop: '6px solid #a78bfa',
+                                        borderRadius: '50%',
+                                        animation: 'spin 1.1s linear infinite',
+                                        marginBottom: '24px',
+                                    }}
+                                />
                                 <h3 style={{ margin: 0, fontSize: '1.4rem', fontWeight: 600 }}>
-                                    Authenticating...
+                                    Sign In into your account
                                 </h3>
                                 <p style={{ margin: '12px 0 0', color: '#c7d2fe', fontSize: '1rem' }}>
                                     Please wait
@@ -313,31 +296,16 @@ export default function LoginPage() {
                         )}
                     </div>
 
-              
-                    <div style={{ textAlign: 'center', marginTop: '40px', fontSize: '1rem' }}>
-                        <a href="" style={{ color: '#a5b4fc', textDecoration: 'none' }}>
-                            Forgot password?
-                        </a>
-                        <p style={{ marginTop: '24px', color: '#cbd5e1' }}>
-                            New to MSB?{' '}
+                    <div style={{ textAlign: 'center', marginTop: '36px', fontSize: '1rem' }}>
+                        <p style={{ color: '#cbd5e1' }}>
+                            Create new account?{' '}
                             <a href="/signup" style={{ color: '#818cf8', fontWeight: 600, textDecoration: 'none' }}>
-                                Create free owner account
+                                Sign up here
                             </a>
                         </p>
                     </div>
                 </div>
-
-                {/* Global styles (keep your existing ones + add spinner animation) */}
-                <style jsx global>{`
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-
-                    /* Your existing orb, stars, particles styles remain unchanged */
-                    .orb { ... } /* your existing orb styles */
-                    @keyframes float1 { ... } /* etc. */
-                `}</style>
             </div>
+        </>
     );
 }

@@ -111,6 +111,7 @@ export default function Header() {
                     `nav-link btn btn-outline-light ms-lg-2 ${isActive ? 'active' : ''}`
                   }
                   onClick={closeMenu}
+                  style={{backgroundColor:"blue", color:"white"}}
                 >
                   Sign Up
                 </NavLink>

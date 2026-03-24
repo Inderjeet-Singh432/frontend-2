@@ -82,8 +82,6 @@ export default function SignUp() {
           position: 'relative',
           minHeight: '100vh',
           overflow: 'hidden',
-          background: 'linear-gradient(135deg, #0a001f 0%, #1a0033 50%, #0f0c29 100%)',
-          fontFamily: 'system-ui, -apple-system, sans-serif',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -106,7 +104,7 @@ export default function SignUp() {
           style={{
             position: 'relative',
             zIndex: 1,
-            background: 'rgba(20, 25, 45, 0.65)',
+            background: 'rgb(43, 71, 106)',
             backdropFilter: 'blur(22px)',
             borderRadius: '28px',
             border: '1px solid rgba(255,255,255,0.12)',
@@ -118,15 +116,7 @@ export default function SignUp() {
           }}
         >
           <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '7px',
-              background: 'linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f472b6)',
-              boxShadow: '0 8px 30px rgba(139,92,246,0.7)',
-            }}
+         
           />
 
           <div style={{ textAlign: 'center', marginBottom: '44px' }}>
@@ -150,15 +140,7 @@ export default function SignUp() {
 
           {error && (
             <div
-              style={{
-                background: 'rgba(220,38,38,0.25)',
-                color: '#fca5a5',
-                padding: '14px',
-                borderRadius: '12px',
-                marginBottom: '28px',
-                textAlign: 'center',
-                border: '1px solid rgba(220,38,38,0.4)',
-              }}
+          
             >
               {error}
             </div>
@@ -189,10 +171,10 @@ export default function SignUp() {
                   style={{
                     width: '100%',
                     padding: '16px 18px',
-                    background: 'rgba(255,255,255,0.08)',
+                    background: 'rgb(255, 255, 255)',
                     border: '1px solid rgba(255,255,255,0.16)',
                     borderRadius: '14px',
-                    color: 'white',
+                    color: 'black',
                     fontSize: '1.05rem',
                     transition: 'all 0.3s',
                     outline: 'none',
@@ -219,15 +201,15 @@ export default function SignUp() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="yourname@example.com"
+                  placeholder="enter your email"
                   required
                   style={{
                     width: '100%',
                     padding: '16px 18px',
-                    background: 'rgba(255,255,255,0.08)',
+                    background: 'rgb(255, 255, 255)',
                     border: '1px solid rgba(255,255,255,0.16)',
                     borderRadius: '14px',
-                    color: 'white',
+                    color: 'black',
                     fontSize: '1.05rem',
                     transition: 'all 0.3s',
                     outline: 'none',
@@ -261,10 +243,10 @@ export default function SignUp() {
                     style={{
                       width: '100%',
                       padding: '16px 48px 16px 18px',
-                      background: 'rgba(255,255,255,0.08)',
+                      background: 'rgb(255, 255, 255)',
                       border: '1px solid rgba(255,255,255,0.16)',
                       borderRadius: '14px',
-                      color: 'white',
+                      color: 'black',
                       fontSize: '1.05rem',
                       transition: 'all 0.3s',
                       outline: 'none',
@@ -315,10 +297,10 @@ export default function SignUp() {
                     style={{
                       width: '100%',
                       padding: '16px 48px 16px 18px',
-                      background: 'rgba(255,255,255,0.08)',
+                      background: 'rgb(255, 255, 255)',
                       border: '1px solid rgba(255,255,255,0.16)',
                       borderRadius: '14px',
-                      color: 'white',
+                      color: 'black',
                       fontSize: '1.05rem',
                       transition: 'all 0.3s',
                       outline: 'none',
@@ -422,19 +404,6 @@ export default function SignUp() {
             </p>
           </div>
         </div>
-
-        {/* Global styles + spinner animation */}
-        <style jsx global>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-
-          /* Your existing orb, stars, particles styles remain unchanged */
-          .orb { position: absolute; border-radius: 50%; background: linear-gradient(135deg, rgba(59,130,246,0.5), rgba(139,92,246,0.4)); box-shadow: 0 0 80px rgba(99,102,241,0.7); backdrop-filter: blur(12px); }
-          .orb-1 { width: 340px; height: 340px; top: -160px; left: -160px; animation: float1 34s infinite ease-in-out; }
-          /* ... rest of your animations ... */
-        `}</style>
       </div>
   );
 }
